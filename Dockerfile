@@ -1,4 +1,4 @@
 FROM ubuntu:latest
 RUN mkdir sanket
-RUN touch /mkdir/test.txt
+RUN touch /sanket/test.txt
 CMD [“ls”]
