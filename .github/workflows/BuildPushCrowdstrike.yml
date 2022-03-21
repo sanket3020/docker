@@ -23,8 +23,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       
-    - name: Registry Login
-      run: docker login --username b0c98ca97e6942a4982784184ab72b8b --password WY756QtCPclv14efAZ0z32oBjRxEawmd8SVLMO9b https://container-upload.us-1.crowdstrike.com
     
     - name: Build and push Docker images
       uses: docker/build-push-action@v2.4.0
@@ -33,22 +31,9 @@ jobs:
         push: false
         tags: "container-upload.us-1.crowdstrike.com/sanketimage:${{ env.CONTAINER_TAG }}"
         
+    - name: Registry Login
+      run: docker login --username ca6aff3ac72b49e0b7da5b7b8f3bf44a --password Qp625svzcNgEAu1VUlSw9ILJ378WqyrCoY0bMTB4 https://container-upload.us-1.crowdstrike.com
+        
     - name: Push docker image
       run: docker push "container-upload.us-1.crowdstrike.com/sanketimage:${{ env.CONTAINER_TAG }}"
       
-    - name: Scan Container Image from Repository
-      uses: CrowdStrike/container-image-scan-action@v0.4
-      id: image-scan
-      with:
-         container_repository: "${{ env.CONTAINER_REPO }}"
-         container_tag: "${{ env.CONTAINER_TAG }}"
-         crowdstrike_region: "${{ env.FALCON_CLOUD_REGION }}"
-#         crowdstrike_score: 500
-   
-   
-    - name: Push docker image
-      run: docker push "container-upload.us-1.crowdstrike.com/sanketimage:${{ env.CONTAINER_TAG }}"
-          
-    - name: Do something if high vulns found
-      run: echo "VULNS FOUND - EXITCODE - ${{ steps.image-scan.outputs.exit-code }}"
-      if:  always() && steps.image-scan.outputs.exit-code == 1
