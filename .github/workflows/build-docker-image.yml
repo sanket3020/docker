@@ -18,6 +18,7 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag container-upload.us-1.crowdstrike.com:$(date +%s)
     - name: Publish To Crowdstrike
+      uses: docker/build-push-action@v1
       with:
        username: ${{ secrets.Client_ID }}
        password: ${{ secrets.Client_Secret }}
