@@ -41,9 +41,10 @@ jobs:
          container_tag: "${{ env.CONTAINER_TAG }}"
          crowdstrike_region: "${{ env.FALCON_CLOUD_REGION }}"
 #         crowdstrike_score: 500
-         
-    - name: Push docker image
+   
+    - name: Registry Login
       run: docker login --username b0c98ca97e6942a4982784184ab72b8b --password WY756QtCPclv14efAZ0z32oBjRxEawmd8SVLMO9b https://container-upload.us-1.crowdstrike.com
+    - name: Push docker image
       run: docker push "container-upload.us-1.crowdstrike.com/sanketimage:${{ env.CONTAINER_TAG }}"
           
     - name: Do something if high vulns found
