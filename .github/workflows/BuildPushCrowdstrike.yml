@@ -7,8 +7,8 @@ on:
     branches: [ main ]
     
 env:
-  FALCON_CLIENT_SECRET: "${{ secrets.FALCON_CLIENT_SECRET }}"
-  FALCON_CLIENT_ID: "${{ secrets.FALCON_CLIENT_ID }}"
+  FALCON_CLIENT_SECRET: "${{ secrets.Client_Secret }}"
+  FALCON_CLIENT_ID: "${{ secrets.Client_ID }}"
   FALCON_CLOUD_REGION: 'us-1'
   CONTAINER_REPO: 'docker push container-upload.us-1.crowdstrike.com'
   CONTAINER_TAG: "${{ github.run_id }}"
@@ -40,7 +40,7 @@ jobs:
       uses: CrowdStrike/container-image-scan-actionv0.4
       id: image-scan
       with:
-         container_repository: "${{ env.CONTAINER_REPOSITORY }}"
+         container_repository: "${{ env.CONTAINER_REPO }}"
          container_tag: "${{ env.CONTAINER_TAG }}"
          crowdstrike_region: "${{ env.FALCON_CLOUD_REGION }}"
 #         crowdstrike_score: 500
