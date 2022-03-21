@@ -10,7 +10,7 @@ env:
   FALCON_CLIENT_SECRET: "${{ secrets.Client_Secret }}"
   FALCON_CLIENT_ID: "${{ secrets.Client_ID }}"
   FALCON_CLOUD_REGION: 'us-1'
-  CONTAINER_REPO: 'docker push container-upload.us-1.crowdstrike.com'
+  CONTAINER_REPO: 'container-upload.us-1.crowdstrike.com'
   CONTAINER_TAG: "${{ github.run_id }}"
 
 jobs:
