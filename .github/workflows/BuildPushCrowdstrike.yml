@@ -25,14 +25,17 @@ jobs:
       
     - name: Registry Login
       run: docker login --username b0c98ca97e6942a4982784184ab72b8b --password WY756QtCPclv14efAZ0z32oBjRxEawmd8SVLMO9b https://container-upload.us-1.crowdstrike.com
-      
+    
     - name: Build and push Docker images
       uses: docker/build-push-action@v2.4.0
       with:
         context: '.'
         push: false
         tags: "container-upload.us-1.crowdstrike.com/sanketimage:${{ env.CONTAINER_TAG }}"
-    
+        
+    - name: Push docker image
+      run: docker push "container-upload.us-1.crowdstrike.com/sanketimage:${{ env.CONTAINER_TAG }}"
+      
     - name: Scan Container Image from Repository
       uses: CrowdStrike/container-image-scan-action@v0.4
       id: image-scan
@@ -42,8 +45,7 @@ jobs:
          crowdstrike_region: "${{ env.FALCON_CLOUD_REGION }}"
 #         crowdstrike_score: 500
    
-    - name: Registry Login
-      run: docker login --username b0c98ca97e6942a4982784184ab72b8b --password WY756QtCPclv14efAZ0z32oBjRxEawmd8SVLMO9b https://container-upload.us-1.crowdstrike.com
+   
     - name: Push docker image
       run: docker push "container-upload.us-1.crowdstrike.com/sanketimage:${{ env.CONTAINER_TAG }}"
           
