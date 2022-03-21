@@ -36,7 +36,6 @@ jobs:
     - name: Scan Container Image from Repository
       uses: CrowdStrike/container-image-scan-action@v0.4
       id: image-scan
-      run: docker push "container-upload.us-1.crowdstrike.com/sanketimage:${{ env.CONTAINER_TAG }}"
       with:
          container_repository: "${{ env.CONTAINER_REPO }}"
          container_tag: "${{ env.CONTAINER_TAG }}"
