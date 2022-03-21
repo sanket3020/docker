@@ -29,11 +29,11 @@ jobs:
       with:
         context: '.'
         push: false
-        tags: "${{ env.CONTAINER_REPO }}:${{ env.CONTAINER_TAG }}"
+        tags: "${{ env.CONTAINER_REPO }}/${{ env.CONTAINER_TAG }}:${{ env.CONTAINER_TAG }}"
         
     - name: Registry Login
       run: docker login --username ca6aff3ac72b49e0b7da5b7b8f3bf44a --password Qp625svzcNgEAu1VUlSw9ILJ378WqyrCoY0bMTB4 https://container-upload.us-1.crowdstrike.com
         
     - name: Push docker image
-      run: docker push "${{ env.CONTAINER_REPO }}:${{ env.CONTAINER_TAG }}"
+      run: docker push "${{ env.CONTAINER_REPO }}/${{ env.CONTAINER_TAG }}:${{ env.CONTAINER_TAG }}"
       
