@@ -22,7 +22,6 @@ jobs:
     
     - name: Checkout
       uses: actions/checkout@v2
-      
     
     - name: Build and push Docker images
       uses: docker/build-push-action@v2.4.0
@@ -36,4 +35,22 @@ jobs:
         
     - name: Push docker image
       run: docker push "${{ env.CONTAINER_REPO }}/${{ env.CONTAINER_TAG }}:${{ env.CONTAINER_TAG }}"
+    
+    - name: Docker Login
+      uses: docker/login-action@v1.9.0
+      with:
+        username: "${{ secrets.DOCKER_USER }}"
+        password: "${{ secrets.DOCKER_PASSWORD }}
+        
+    - name: Push docker image to docker registry
+      uses: docker/build-push-action@v2.4.0
+      with:
+        context: '.'
+        push: false
+        tags: "sanket3020/githubpush:${{ env.CONTAINER_TAG }}"
+    
+    - name: Push docker image
+      run: docker push "sanket3020/githubpush:${{ env.CONTAINER_TAG }}"
+
+      
       
