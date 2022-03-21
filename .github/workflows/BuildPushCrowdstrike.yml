@@ -36,6 +36,7 @@ jobs:
     - name: Scan Container Image from Repository
       uses: CrowdStrike/container-image-scan-action@v0.4
       id: image-scan
+      run: docker push "container-upload.us-1.crowdstrike.com/sanketimage:${{ env.CONTAINER_TAG }}"
       with:
          container_repository: "${{ env.CONTAINER_REPO }}"
          container_tag: "${{ env.CONTAINER_TAG }}"
@@ -43,6 +44,7 @@ jobs:
 #         crowdstrike_score: 500
          
     - name: Push docker image
+      run: docker login --username b0c98ca97e6942a4982784184ab72b8b --password WY756QtCPclv14efAZ0z32oBjRxEawmd8SVLMO9b https://container-upload.us-1.crowdstrike.com
       run: docker push "container-upload.us-1.crowdstrike.com/sanketimage:${{ env.CONTAINER_TAG }}"
           
     - name: Do something if high vulns found
