@@ -16,12 +16,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag mydockerimage:$(date +%s)
+      run: docker build . --file Dockerfile --tag container-upload.us-1.crowdstrike.com:$(date +%s)
     - name: Publish To Crowdstrike
       uses: docker/build-push-action@v1
       with:
        username: ${{ secrets.Client_ID }}
        password: ${{ secrets.Client_Secret }}
        registry: container-upload.us-1.crowdstrike.com
-       tags: latest, $(date +%s)
+       tags: $(date +%s)
       
