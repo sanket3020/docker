@@ -23,12 +23,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       
-    - name: Docker Login
-      uses: docker/login-action@v1.9.0
-      with:
-        container_repository: "${{ env.CONTAINER_REPO }}"
-        username: "${{ secrets.Client_Secret }}"
-        password: "${{ secrets.Client_ID }}"
+    - name: Registry Login
+      run: docker login --username "${{ secrets.Client_Secret }}" --password "${{ secrets.Client_Secret }}" https://container-upload.us-1.crowdstrike.com
       
     - name: Build and push Docker images
       uses: docker/build-push-action@v2.4.0
